@@ -11,6 +11,12 @@ const starContainerStyle = {
 }
 StarRating.propTypes = {
   maxRating: PropTypes.number,
+  dafaultRating: PropTypes.number,
+  color: PropTypes.string,
+  size: PropTypes.number,
+  messages: PropTypes.array,
+  className: PropTypes.string,
+  onSetRating: PropTypes.func,
 }
 
 export default function StarRating({
@@ -23,11 +29,12 @@ export default function StarRating({
   onSetRating,
 }) {
   const [rating, setRating] = useState(dafaultRating)
-  const [tempRating, settempRating] = useState(0)
+  const [tempRating, setTempRating] = useState(0)
 
   function handleRating(rating) {
     setRating(rating)
-    onSetRating(rating)
+
+    onSetRating?.(rating)
   }
 
   const textStyle = {
@@ -44,8 +51,8 @@ export default function StarRating({
             key={i}
             full={tempRating ? tempRating >= i + 1 : rating >= i + 1}
             onClick={() => handleRating(i + 1)}
-            onHoverIn={() => settempRating(i + 1)}
-            onHoverOut={() => settempRating(0)}
+            onHoverIn={() => setTempRating(i + 1)}
+            onHoverOut={() => setTempRating(0)}
             color={color}
             size={size}
           />
