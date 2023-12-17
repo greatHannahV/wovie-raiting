@@ -51,6 +51,7 @@ const average = (arr) =>
   arr.reduce((acc, cur, i, arr) => acc + cur / arr.length, 0)
 
 const KEY = `35b2a9da`
+
 export default function App() {
   const [query, setQuery] = useState('')
   const [movies, setMovies] = useState([])
@@ -105,7 +106,7 @@ export default function App() {
         setError('')
         return
       }
-
+      handleCloseMovie()
       fetchMovies()
 
       return function () {
