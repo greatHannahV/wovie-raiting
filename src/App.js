@@ -73,6 +73,7 @@ export default function App() {
   function handleDeleteWatched(id) {
     setWatched((watched) => watched.filter((movie) => movie.imdbID !== id))
   }
+
   useEffect(
     function () {
       const controller = new AbortController()
@@ -232,11 +233,21 @@ function Box({ children }) {
 
 function MovieList({ movies, onSelectMovie }) {
   return (
-    <ul className="list list-movies">
-      {movies?.map((movie) => (
-        <Movie movie={movie} key={movie.imdbID} onSelectMovie={onSelectMovie} />
-      ))}
-    </ul>
+    <>
+      {movies && movies.length > 0 ? (
+        <ul className="list list-movies">
+          {movies?.map((movie) => (
+            <Movie
+              movie={movie}
+              key={movie.imdbID}
+              onSelectMovie={onSelectMovie}
+            />
+          ))}
+        </ul>
+      ) : (
+        <h1 className="error">Start searching a movie</h1>
+      )}
+    </>
   )
 }
 
@@ -296,6 +307,20 @@ function MovieDetails({
     onAddWatched(newWatchedMovie)
     onCloseMovie()
   }
+  useEffect(
+    function () {
+      function callback(e) {
+        if (e.code === 'Escape') {
+          onCloseMovie()
+        }
+      }
+      document.addEventListener('keydown', callback)
+      return function () {
+        document.removeEventListener('keydown', callback)
+      }
+    },
+    [onCloseMovie],
+  )
   useEffect(
     function () {
       async function getMovieDetails() {
