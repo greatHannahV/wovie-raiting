@@ -3,7 +3,6 @@ import StarRating from './StarRating'
 import { useMovies } from './useMovies'
 import { useLocalStorageState } from './useLocalStarageState'
 import { useKey } from './useKey'
-
 const average = (arr) =>
   arr.reduce((acc, cur, i, arr) => acc + cur / arr.length, 0)
 
