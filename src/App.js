@@ -6,7 +6,7 @@ import { useKey } from './useKey'
 const average = (arr) =>
   arr.reduce((acc, cur, i, arr) => acc + cur / arr.length, 0)
 
-const KEY = `87589145`
+const KEY = `f0bbe3c`
 
 export default function App() {
   const [query, setQuery] = useState('')
